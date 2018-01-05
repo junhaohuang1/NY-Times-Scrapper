@@ -30,9 +30,10 @@ app.use(bodyParser.urlencoded({
 
 // Database configuration
 if (process.env.NODE_ENV == 'production') {
-
+mongoose.connect('mongodb://heroku_sxvbj9nn:a9vgt9p1uripuruilqbo4b5o3q@ds237967.mlab.com:37967/heroku_sxvbj9nn');
 } else {
   mongoose.connect('mongodb://localhost/news-scraper');
+
 }
 var db = mongoose.connection;
 
