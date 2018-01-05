@@ -1,0 +1,22 @@
+{{#if articles}}
+  <ul>
+    {{#each articles}}
+      <li>
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 collapsible-header lighten-2">
+            <div><b>{{title}}</b></div>
+            <div class="row">
+              <p class="col-lg-8">Please read the full article <a href="{{link}}" target="_new">here</a>
+              </p>
+              <form id="form-add-{{_id}}" class="col-lg-4" action="save/{{_id}}" method="post">
+                <!-- Submit Button -->
+                <input data-id="{{_id}}" type="submit" value="Save Article">
+              </form>
+            </div>
+          </div>
+        </div>
+      </li>
+
+    {{/each}}
+  </ul>
+{{/if}}

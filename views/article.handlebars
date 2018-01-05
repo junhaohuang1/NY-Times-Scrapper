@@ -1,0 +1,95 @@
+{{!-- Templating for all Articles  --}}
+
+{{!-- Iterate Over all the articles --}}
+{{#each articles}}
+  <ul class="col-lg-8 col-lg-offset-2 collapsible" data-collapsible="accordion">
+
+    <!-- Article Drop Down -->
+    <li>
+      <div class="collapsible-header lighten-2">
+        <div><b>{{title}}</b>
+
+          </span>
+        </div>
+        <div class="row">
+          <p class="col-lg-8">Please read the full article <a href="{{link}}" target="_new">here</a>
+          </p>
+          <form id="form-delete-{{_id}}" class="col-lg-4" action="delete/{{_id}}" method="POST">
+            <!-- Submit Button -->
+            <input data-id="{{_id}}" type="submit" value="Delete from Saved Article">
+          </form>
+        </div>
+      </div>
+    </li>
+
+
+    <!-- Add Notes Drop Down -->
+    <li>
+      <div class="collapsible-header"><i class="material-icons">comment</i>Add a Notes</div>
+      <div class="collapsible-body" style="background-color: white;">
+
+        <form id="form-add-{{_id}}" action="articles/{{_id}}" method="post" style="background-color: white;">
+
+
+          <!-- Notes Input -->
+          <div class="row">
+            <div class="input-field col s2"></div>
+            <div class="input-field col s8">
+              <textarea id="notes_box" name="body" class="materialize-textarea"></textarea>
+              <label for="notes_box">Your Note:</label>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="row">
+            <div class="input-field col s2"></div>
+            <div class="input-field col s8">
+              <center><input class="btn add-note-button" data-id="{{_id}}" type="submit" value="Submit"></center>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </li>
+
+
+    <!-- View Notess Drop Down -->
+    <li>
+      <div class="collapsible-header"><i class="material-icons">thumbs_up_down</i>View Notes</div>
+      <div class="collapsible-body" style="background-color: white;">
+
+        {{!-- Check if the article has Notes --}}
+        {{#if note}}
+
+          {{!-- Article has Notes so iterate over them  --}}
+          <ul class="collection">
+            {{#each note}}
+
+              <li class="collection-item">
+
+                {{!-- Add the Body of the Notes --}}
+
+                {{body}}
+                  {{!-- Add a Delete Button --}}
+                  <span class="badge">
+                  <form id="form-delete-{{_id}}" action="notes/{{_id}}" method="DELETE">
+                    <input class="btn-small delete-note-button" data-id="{{_id}}" type="submit" value="Delete" style="color: white; background-color: red; border-color: red;">
+                  </form>
+                </span>
+
+              </li>
+            {{/each}}
+          </ul>
+
+          {{!-- No Notes, so display message --}}
+        {{else}}
+          <p>No Notes Yet :( </p>
+        {{/if}}
+
+
+      </div>
+    </li>
+
+  </ul>
+{{/each}}
