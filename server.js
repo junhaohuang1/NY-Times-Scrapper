@@ -86,7 +86,7 @@ app.get("/scrape", function(req, res) {
 
 //get articles from the database
 app.get("/articles", function(req, res) {
-  Article.find({ $query: {"saved":false}, $sort: { "createdOn" : 1 } }, function(error, data){
+  Article.find({ $query: {"saved":false}, $sort: { "createdOn" : -1 } }, function(error, data){
     if (error) throw error;
     var hbsObject = {
       articles: data
@@ -128,7 +128,7 @@ app.post("/delete/:id", function(req, res) {
 
 
 app.get("/saved", function(req, res) {
-  Article.find({ $query: {"saved":true}, $sort: { "createdOn" : 1 } })
+  Article.find({ $query: {"saved":true}, $sort: { "createdOn" : -1 } })
   .populate("note")
   .exec(function(error, data) {
     if (error) throw error;
