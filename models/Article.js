@@ -24,7 +24,11 @@ var ArticleSchema = new Schema({
     default: false,
     required: true
   },
-
+  createdOn:{
+    type: Date,
+    required: true,
+    default: Date()
+  },
   note: [{
     type: Schema.Types.ObjectId,
     ref: "Note"

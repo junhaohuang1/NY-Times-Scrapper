@@ -86,9 +86,7 @@ app.get("/scrape", function(req, res) {
 
 //get articles from the database
 app.get("/articles", function(req, res) {
-  Article.find({
-    "saved": false
-  }, function(error, data) {
+  Article.find({ $query: {"saved":false}, $sort: { "createdOn" : 1 } }, function(error, data){
     if (error) throw error;
     var hbsObject = {
       articles: data
@@ -130,9 +128,7 @@ app.post("/delete/:id", function(req, res) {
 
 
 app.get("/saved", function(req, res) {
-  Article.find({
-    "saved": true
-  })
+  Article.find({ $query: {"saved":true}, $sort: { "createdOn" : 1 } })
   .populate("note")
   .exec(function(error, data) {
     if (error) throw error;
@@ -142,21 +138,6 @@ app.get("/saved", function(req, res) {
     res.render("article", hbsObject);
   });
 });
-
-//get notes for the article by the article id
-// app.get("/articles/:id", function(req, res) {
-//   Article.findOne({
-//       "_id": req.params.id
-//     })
-//     .populate("note")
-//     .exec(function(error, data) {
-//       if (error) throw error;
-//       var hbsObject = {
-//         notes: data
-//       }
-//       res.render("article", hbsObject);
-//     });
-// });
 
 
 //create new note for articles
